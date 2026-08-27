@@ -273,6 +273,7 @@ const App = (function () {
             <div class="user-role-select" onclick="App.toggleRoleMenu(event)">${state.role} &#9662;</div>
           </div>
         </div>
+        <button class="icon-btn help-btn logout-btn" title="Logout" onclick="AuthGate.logout()"><span class="help-btn-label">Logout</span></button>
       </div>
     </div>`;
   }
@@ -1797,5 +1798,11 @@ const App = (function () {
 
 })();
 
-document.addEventListener("DOMContentLoaded", function () { App.init(); });
+document.addEventListener("DOMContentLoaded", function () {
+  if (!AuthGate.isAuthenticated()) {
+    AuthGate.showGate(function () { App.init(); });
+  } else {
+    App.init();
+  }
+});
 
